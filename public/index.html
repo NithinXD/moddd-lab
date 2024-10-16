@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="studentApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Student Management System</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script> <!-- Make sure to link your updated app.js file -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input {
+            margin-right: 10px;
+        }
+        button {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body ng-controller="StudentController">
+
+    <h1>Student Management System</h1>
+    
+    <input type="text" ng-model="searchTerm" placeholder="Search students..." />
+
+    <ul>
+        <li ng-repeat="student in students | studentFilter:searchTerm">
+            {{ student.name }} - {{student.regno}} - {{ student.department }}
+            <button ng-click="editStudent(student)">Edit</button>
+            <button ng-click="deleteStudent(student._id)">Delete</button>
+        </li>
+    </ul>
+
+    <form ng-submit="addStudent()">
+        <input type="text" ng-model="student.name" placeholder="Name" required />
+        <input type="text" ng-model="student.regno" placeholder="Registration Number" required />
+        <input type="text" ng-model="student.department" placeholder="Department" required />
+        <button type="submit">Add Student</button>
+        <button type="button" ng-click="updateStudent()" ng-if="student._id">Update Student</button>
+    </form>
+
+</body>
+</html>
